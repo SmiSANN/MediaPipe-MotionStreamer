@@ -1,4 +1,4 @@
-# VartualMirror_Client
+# MediaPipe-MotionStreamer
 
 VartualMirror_Client は Electron + Vite + TypeScript を使って作られたローカル向けのアプリケーションです。
 このリポジトリは、MediaPipe のタスクファイルを含むクライアント側の実装を含んでいます。
@@ -8,10 +8,11 @@ VartualMirror_Client は Electron + Vite + TypeScript を使って作られた�
 MediaPipe のランタイム（wasm）とタスクファイルを `public/` に配置して動作させます。
 
 ## 今後実装する機能
-
+- 習得したランドマークからHumanoidボーン各種の回転（Rotation）への変換
 - カメラの選択、切り替え
 - VRChatOSCTrackingへの対応
 - VMCプロトコルへの対応
+- WebSocketへの対応
 
 ## 現状
 
