@@ -2,42 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>MediaPipe Hand Landmarker</title>
-    <style>
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #222; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container {
-            position: relative;
-            width: 640px;
-            height: 480px;
-            background-color: black;
-            border: 2px solid #555;
-            overflow: hidden; /* カメラ映像がはみ出さないように */
-        }
-        #webcam {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 映像がコンテナに収まるように */
-            transform: scaleX(-1); /* 鏡像反転 */
-        }
-        #output_canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: scaleX(-1); /* 鏡像反転 */
-        }
-        #loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-        }
-    </style>
+    <title>MediaPipe Landmarker</title>
+    <link rel="stylesheet" href="./src/index.css" type="text/css">
 </head>
 <body>
     <div class="container">
