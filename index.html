@@ -1,51 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
-    <meta charset="UTF-8" />
-    <title>MediaPipe Hand Landmarker</title>
-    <style>
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #222; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container {
-            position: relative;
-            width: 640px;
-            height: 480px;
-            background-color: black;
-            border: 2px solid #555;
-            overflow: hidden; /* カメラ映像がはみ出さないように */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaPipe Landmarker - Dark Theme</title>
+    <!-- Tailwind CSS CDNをロード -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 外部CSSファイルを読み込み -->
+    <link rel="stylesheet" href="./src/index.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#2563eb', // Blue-600 for main actions
+                        'sidebar': '#1f2937', // Gray-800
+                        'appbg': '#111827', // Gray-900
+                    }
+                }
+            }
         }
-        #webcam {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 映像がコンテナに収まるように */
-            transform: scaleX(-1); /* 鏡像反転 */
-        }
-        #output_canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: scaleX(-1); /* 鏡像反転 */
-        }
-        #loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="container">
-        <video id="webcam" autoplay playsinline></video>
-        <canvas id="output_canvas" width="640" height="480"></canvas>
-        <div id="loading">モデルを読み込み中...</div>
+
+<body class="bg-appbg text-gray-100 min-h-screen p-4 flex justify-center items-center">
+
+    <!-- アプリ全体のレイアウトコンテナ -->
+    <!-- デスクトップ(lg)以上でflex-row（サイドバー左）、それ以下でflex-col（サイドバー上） -->
+    <div
+        class="app-layout bg-gray-900 shadow-2xl rounded-xl w-full max-w-7xl h-[95vh] overflow-hidden flex flex-col lg:flex-row">
+
+        <!-- -------------------------------------------------------------------------- -->
+        <!-- 1. サイドバー (UIコントロールエリア) -->
+        <!-- -------------------------------------------------------------------------- -->
+        <div
+            class="sidebar bg-sidebar p-5 lg:w-64 w-full flex flex-col gap-6 border-b lg:border-r lg:border-b-0 border-gray-700 overflow-y-auto">
+
+            <h1 class="text-xl font-bold text-primary mb-2">設定パネル</h1>
+
+            <!-- カメラ選択 -->
+            <div class="ui-group flex flex-col">
+                <label for="camera-select" class="mb-2 font-medium text-gray-300">カメラ選択</label>
+                <select id="camera-select" class="custom-select">
+                    <option value="" disabled selected>カメラを読み込み中...</option>
+                </select>
+            </div>
+
+            <!-- 解像度選択 -->
+            <div class="ui-group flex flex-col">
+                <label for="resolution-select" class="mb-2 font-medium text-gray-300">カメラ解像度選択</label>
+                <select id="resolution-select" class="custom-select">
+                    <option value="1920x1080">1920x1080 (FHD)</option>
+                    <option value="1280x720" selected>1280x720 (HD)</option>
+                    <option value="640x480">640x480 (SD)</option>
+                </select>
+            </div>
+
+            <!-- UIプレースホルダー -->
+            <div
+                class="additional-ui-placeholder flex-grow p-4 mt-2 border-y border-gray-700 bg-gray-700/30 rounded-lg">
+                <p class="text-gray-400 text-sm italic">
+                    追加のコントロール（スライダー、チェックボックスなど）をここに追加できます。
+                </p>
+            </div>
+
+            <!-- トグルボタン -->
+            <div class="toggle-group mt-auto pt-4">
+                <button id="camera-toggle-button" class="toggle-button">
+                    開始/停止 トグルボタン
+                </button>
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------------------- -->
+        <!-- 2. メインコンテンツ (プレビューエリア) -->
+        <!-- -------------------------------------------------------------------------- -->
+        <div class="main-content flex-grow flex justify-center items-center p-6 lg:p-10">
+            <div
+                class="container relative w-full h-full max-w-4xl max-h-[700px] bg-black border-4 border-gray-700 rounded-xl overflow-hidden shadow-inner flex justify-center items-center">
+                <!-- ビデオ要素 (通常は非表示、またはキャンバスの下) -->
+                <video id="webcam" class="absolute inset-0 w-full h-full object-cover" autoplay playsinline></video>
+
+                <!-- 出力キャンバス -->
+                <canvas id="output_canvas" class="absolute inset-0 w-full h-full" width="640" height="480"></canvas>
+
+                <!-- ローディング表示 -->
+                <div id="loading"
+                    class="absolute z-10 p-4 bg-gray-800/80 rounded-lg text-lg font-semibold text-white backdrop-blur-sm">
+                    モデルを読み込み中...
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="./src/renderer.ts"></script>
+    <script type="module" src="./src/ui.ts"></script>
 </body>
+
 </html>

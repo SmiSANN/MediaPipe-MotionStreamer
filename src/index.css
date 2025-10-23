@@ -1,8 +1,58 @@
+/* Interフォントを設定 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    background-color: #111827;
 }
+
+/* ビデオとキャンバスのミラーリング（鏡像反転）を確保 */
+#webcam,
+#output_canvas {
+    transform: scaleX(-1);
+}
+
+/* ============================================================================ */
+/* カスタムコンポーネントクラス */
+/* ============================================================================ */
+
+/* セレクトボックス共通スタイル */
+.custom-select {
+    padding: 0.75rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    border-radius: 0.5rem;
+    color: white;
+    transition: all 0.15s;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* トグルボタン */
+.toggle-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.toggle-button:hover {
+    background-color: #1d4ed8;
+}
+
+.toggle-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.5);
+}
+
+
